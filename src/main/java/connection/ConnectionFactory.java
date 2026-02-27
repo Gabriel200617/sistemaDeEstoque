@@ -4,37 +4,36 @@
  */
 package connection;
 
-import jakarta.jms.Connection;
+import java.sql.Connection;
 import java.sql.DriverManager;
-
+import java.sql.SQLException;
 /**
  *
- * @author 232.004057
+ * @author EJADEN0058
  */
 public class ConnectionFactory {
-    
-    //dados do banco
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL =
+
+    //Dados da conexão
+        private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+        private static final String URL =
             "jdbc:mysql://localhost:3306/estoque_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-    private static final String USER = "root";
-    private static final String PASSWORD = "cimatec";
-    
-    //métodos
-    public static connection getConnection() {
-        Connection con = null;
+        private static final String USER = "root";
+        private static final String PASSWORD = "cimatec";
+    //Métodos
         
-        try {
-            class.forName(DRIVER);
-            con = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Bando de Dados Conectado");
-        } catch (Exception e) {
-            System.out.println("Banco de Dados Não Conectado");
-            e.printStackTrace();
-        }
-        
-        return con;
-    }
+        public static Connection getConnection(){
+            Connection con = null;
             
-    
+            try {
+                Class.forName(DRIVER);
+                con = DriverManager.getConnection(URL, USER, PASSWORD);
+                System.out.println("Banco de dados conectado.");
+            } catch (Exception e) {
+                System.out.println("Banco de dados não conectado");
+                e.printStackTrace();
+            }
+            
+            return con;
+             
+        }
 }
