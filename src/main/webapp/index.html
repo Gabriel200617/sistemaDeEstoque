@@ -4,27 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/cores.css"/>
+    <link rel="stylesheet" href="css/login.css">
     <title>Sistema estoque</title>
 </head>
 
 <body>
     <header>
         <div class="box-title">
-        <h1 class="Title">Sistema de Estoque</h1>
         </div>
     </header>
     <main>
         <form action="login" method="post">
             <div class="content">
+                <div class="Login"> 
+                <h2>Login</h2>
+                <hr>
+                </div>
                 <div class="User">
                     <label>Usuário</label>
+                    <hr>
+                    </div>
                     <input type="text" name="users" class="inputUser" placeholder="Informe o Usuário" />
-                </div>
                 <div class="Passsword">
                     <label>Senha</label>
+                    <hr>
+                    </div>
                     <input type="password" name="passw" class="inputPassword" placeholder="Informe a senha" />
-                </div>
                 <div class="box-button">
                     <button type="submit" class="button">Entrar</button>
                 </div>
