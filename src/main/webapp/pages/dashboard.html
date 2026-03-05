@@ -1,15 +1,98 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <link rel="stylesheet" href="../css/reset.css"/>
+        <link rel="stylesheet" href="../css/cores.css"/>
+        <title>Dashboard</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <header>
+            <h1>Estoquim</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Gerenciamento</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section>
+                <div>
+                    <h2>Entrada</h2>
+                    <p>100</p>
+                </div>
+                <div>
+                    <h2>Saída</h2>
+                    <p>80</p>
+                </div>
+                <div>
+                    <h2>Total</h2>
+                    <p>20</p>
+                </div>
+            </section>
+            <section>
+                <div>
+                    <label>Data</label>
+                    <input type="date" name="data">
+                </div>
+                <div>
+                    <label>Tipo</label>
+                    <select id="id">
+                        <option>Selecione uma opção</option>
+                        <option>Entrada</option>
+                        <option>Saída</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Pesquisar item</label>
+                    <input type="text" placeholder="Digite o nome do produto">
+                </div>
+                <div>
+                    <button>Pesquisar</button>
+                </div>
+            </section>
+            <section>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código de barras</th>
+                                <th>Nome</th>
+                                <th>Fabricante</th>
+                                <th>Marca</th>
+                                <th>Quantidade</th>
+                                <th>Valor unitário</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>123456789</td>
+                                <td>Mouse</td>
+                                <td>Logitech</td>
+                                <td>MX</td>
+                                <td>10</td>
+                                <td>R$80,00</td>
+                                <td>R$800,00</td>
+                            </tr>
+                             <tr>
+                                <td>123456789</td>
+                                <td>Teclado</td>
+                                <td>Logitech</td>
+                                <td>MXC</td>
+                                <td>25</td>
+                                <td>R$120,00</td>
+                                <td>R$1200,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section>
+                
+            </section>
+        </main>
     </body>
 </html>
