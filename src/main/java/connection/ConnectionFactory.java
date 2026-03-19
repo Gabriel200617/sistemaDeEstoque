@@ -16,7 +16,7 @@ public class ConnectionFactory {
     //Dados da conexão
         private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
         private static final String URL =
-            "jdbc:mysql://localhost:3306/estoque_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+            "jdbc:mysql://localhost:3306/estoque_db1?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
         private static final String USER = "root";
         private static final String PASSWORD = "cimatec";
     //Métodos
