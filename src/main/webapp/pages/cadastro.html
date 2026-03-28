@@ -19,7 +19,7 @@
             </nav>
         </header>
         <main id="main" >
-            <form action="/cadastro" method="POST">
+            <form action="cadastro" method="POST">
                 <div class="container">
                     <div class="dadosPessoais">
                         <label for="nameFirst">Nome</label>
@@ -32,7 +32,7 @@
                         <input type="text" name="cpf" id="cpf" placeholder="Digite o seu CPF" />
                         <p>Sexo</p>
                         <select name="opcao" id="opcao">
-                            <option value="">Selecione o sexo</option>
+                            <option value="">Selecione o sexo</option>      
                             <option value="1">Masculino</option>
                             <option value="2">Feminino</option>
                         </select>
@@ -42,6 +42,10 @@
                         <input type="email" name="email" id="email" placeholder="Digite o seu E-mail" />
                         <label for="telefone">Telefone</label>
                         <input type="tel" name="telefone" id="telefone" placeholder="(00)0 0000-0000" />
+                        <label for="usuario">Usuário</label>
+                        <input type="text" name="usuario" id="usuario" />
+                        <label for="senha">Senha</label>
+                        <input type="password" name="senha" id="senha" />
                         <label for="funcao">Função</label>
                         <input type="text" name="funcao" id="funcao" placeholder="Digite a sua função" />
                     </div>
