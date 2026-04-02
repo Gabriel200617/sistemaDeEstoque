@@ -10,7 +10,7 @@ public class CadastroUsersDAO {
     public boolean cadastrar(CadastroUsuarioModel user) {
         String sql = "INSERT INTO users " +
                     "(username, passwords,nameFirst,sobreNome,matricula,cpf,sexo,dtaNascimento,email,telefone,funcao,cep,endereco,numero,complemento,bairro,cidade,estado)"+
-                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                     "VALUE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try (var con = connection.ConnectionFactory.getConnection()) {
             
@@ -27,7 +27,7 @@ public class CadastroUsersDAO {
             stmt.setString(9, user.getEmail());
             stmt.setString(10, user.getTelefone());
             stmt.setString(11, user.getFuncao());
-            stmt.setLong(12, user.getCep());
+            stmt.setString(12, user.getCep());
             stmt.setString(13, user.getEndereco());
             stmt.setLong(14, user.getNumero());
             stmt.setString(15, user.getComplemento());

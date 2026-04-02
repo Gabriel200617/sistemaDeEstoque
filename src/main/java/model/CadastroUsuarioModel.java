@@ -6,7 +6,7 @@ public class CadastroUsuarioModel {
     private String nome;
     private String sobrenome;
     private String cpf;
-    private long cep;
+    private String cep;
     private String matricula;
     private String telefone;
     private String sexo;
@@ -70,11 +70,11 @@ public class CadastroUsuarioModel {
         this.cpf = cpf;
     }
 
-    public long getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(long cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
