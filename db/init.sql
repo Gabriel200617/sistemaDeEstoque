@@ -22,5 +22,18 @@ create table users (
     complemento VARCHAR(100)	
 );
 
+create table produtos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_barras VARCHAR(100) NOT NULL,
+    nome_produto VARCHAR(255) NOT NULL,
+    fabricante VARCHAR(255),
+    marca VARCHAR(255),
+    data_fabricacao DATE,
+    data_vencimento DATE,
+    quantidade BIGINT,
+    valor DECIMAL(10,2),
+    total DECIMAL(10,2)
+);
+
 INSERT INTO users (username, passwords,nameFirst,sobreNome,matricula,cpf,sexo,dtaNascimento,email,telefone,funcao,cep,endereco,numero,complemento,bairro,cidade,estado)
 VALUES('admin','1234','Jorge Gabriel', 'Souza', '2026001','123.456.789-00', 1, '1990-05-15', 'admin@empresa.com.br', '(11) 98888-7777', 'Gerente', '01001-000', 'Praça da Sé', '100', 'Conjunto 12', 'Sé', 'São Paulo', 'SP');
