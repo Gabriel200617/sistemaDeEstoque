@@ -32,7 +32,8 @@ create table produtos (
     data_vencimento DATE,
     quantidade BIGINT,
     valor DECIMAL(10,2),
-    total DECIMAL(10,2)
+    total DECIMAL(10,2),
+    status VARCHAR(255)
 );
 
 INSERT INTO users (username, passwords,nameFirst,sobreNome,matricula,cpf,sexo,dtaNascimento,email,telefone,funcao,cep,endereco,numero,complemento,bairro,cidade,estado)

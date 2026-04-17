@@ -3,15 +3,18 @@ package dao;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import model.CadastroProdutoModel;
 
 public class CadastroProdutosDAO {
 
     public boolean salvar(CadastroProdutoModel produto) {
         String sql = "INSERT INTO produtos "
-                + "(codigo_barras,nome_produto,fabricante,marca,data_fabricacao,data_vencimento,quantidade,valor,total)"
+                + "(codigo_barras,nome_produto,fabricante,marca,data_fabricacao,data_vencimento,quantidade,valor,total,status)"
                 + "VALUE(?,?,?,?,?,?,?,?,?)";
 
         try (Connection conn = ConnectionFactory.getConnection(); 
@@ -25,6 +28,7 @@ public class CadastroProdutosDAO {
                 stmt.setLong(7, produto.getQuantidade());
                 stmt.setString(8, produto.getValor());
                 stmt.setString(9, produto.getTotal());
+                stmt.setString(10, produto.getStatus());
 
                 stmt.executeUpdate();
                 
@@ -33,6 +37,35 @@ public class CadastroProdutosDAO {
             e.printStackTrace();
             return false;
             }
+        }
+    
+        public List<CadastroProdutoModel> listar(){
+            List<CadastroProdutoModel> lista = new ArrayList<>();
+            
+            String sql = "SELECT * FROM produtos";
+            
+            try (Connection conn = ConnectionFactory.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    ResultSet rs = stmt.executeQuery()){
+                    
+                while(rs.next()) {
+                    CadastroProdutoModel p = new CadastroProdutoModel();
+                    
+                    p.setCodigoBarras(rs.getString("codigo_barras"));
+                    p.setNomeProduto(rs.getString("nome_produto"));
+                    p.setFabricante(rs.getString("fabricante"));
+                    p.setMarca(rs.getString("marca"));
+                    p.setQuantidade(rs.getLong("quantidade"));
+                    p.setValor(rs.getString("valor"));
+                    p.setTotal(rs.getString("total"));
+                    p.setStatus(rs.getString("status"));
+                    
+                    lista.add(p);
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            return lista;
         }
     }
 
