@@ -34,6 +34,7 @@ public class CadastroProdutosController extends HttpServlet {
                 response.sendRedirect("pages/dashboard.html");
             }else{
                 response.sendRedirect("pages/cadastroProdutos.html");
+                System.out.println("Chegou aqui");
             }
     }
 

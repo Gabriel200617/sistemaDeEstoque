@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import connection.ConnectionFactory;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet("/api/resumo")
 public class ResumoEstoqueController extends HttpServlet{
@@ -38,13 +41,17 @@ public class ResumoEstoqueController extends HttpServlet{
              
              int total = entrada - saida;
              
-             var resultado = new Object() {
-                 final int entradaVal = entrada;
-                 final int saidaVal = saida;
-                 final int totalVal = total;
-             };
+             Map<String, Integer> resultado = new HashMap<>();
+            resultado.put("entrada", entrada);
+            resultado.put("saida", saida);
+            resultado.put("total", total);
+  
+            String json = new Gson().toJson(resultado);
+            
+            response.setContentType("application/json");
+            response.getWriter().write(json);
          }catch(Exception e){
-             
+            e.printStackTrace();
          }
      }
      

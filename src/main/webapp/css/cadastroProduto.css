@@ -1,4 +1,4 @@
-    body {
+body {
     background-color: var(--gray-light);
     font-family: Arial, Helvetica, sans-serif;
     padding: 20px;
@@ -115,4 +115,8 @@
 
 .btn-cancelar:hover {
     background-color: var(--gray-dark);
+}
+
+.dataFabricacao, .dataVencimento, .fabricante {
+    margin-top: 15px;
 }
