@@ -3,6 +3,7 @@ package dao;
 import model.CadastroUsuarioModel;
 import connection.ConnectionFactory;
 import java.sql.PreparedStatement;
+import util.SenhaUtil;
 
 
 public class CadastroUsersDAO {
@@ -16,8 +17,10 @@ public class CadastroUsersDAO {
             
             PreparedStatement stmt = con.prepareStatement(sql);
             
+            String senhaHash = SenhaUtil.gerarHash(user.getSenha());
+            
             stmt.setString(1, user.getNomeUsuario());
-            stmt.setString(2, user.getSenha());
+            stmt.setString(2, senhaHash);
             stmt.setString(3, user.getNome());
             stmt.setString(4, user.getSobrenome());
             stmt.setString(5, user.getMatricula());
