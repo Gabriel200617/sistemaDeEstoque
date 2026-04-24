@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import model.CadastroProdutoModel;
@@ -38,16 +37,39 @@ public class CadastroProdutosDAO {
         }
     }
 
-    public List<CadastroProdutoModel> listar() {
+    public List<CadastroProdutoModel> listarComFiltro(String nome, String tipo, String data) {
         List<CadastroProdutoModel> lista = new ArrayList<>();
+        
+        StringBuilder sql = new StringBuilder("SELECT * FROM produtos WHERE 1=1");
+        
+        if(nome != null && !nome.isEmpty()){
+            sql.append(" AND LOWER(nome_produto) LIKE ?");
+        }
+        if(tipo != null && !tipo.isEmpty()){
+            sql.append("AND status = ?");
+        }
+        if(data != null && !data.isEmpty()){
+            sql.append(" AND data_vencimento = ?");
+        }
 
-        String sql = "SELECT * FROM produtos";
-
-        try (Connection conn = ConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString());) {
+            int index = 1;
+            
+            if(nome != null && !nome.isEmpty()){
+                stmt.setString(index++, "%" + nome.toLowerCase() + "%");
+            }
+            if(tipo != null && !tipo.isEmpty()){
+                stmt.setString(index++, tipo);
+            }
+            if(data != null && !data.isEmpty()){
+                stmt.setString(index++, data);
+            }
+                
+            ResultSet rs = stmt.executeQuery(); 
 
             while (rs.next()) {
                 CadastroProdutoModel p = new CadastroProdutoModel();
-
+                
                 p.setCodigoBarras(rs.getString("codigo_barras"));
                 p.setNomeProduto(rs.getString("nome_produto"));
                 p.setFabricante(rs.getString("fabricante"));

@@ -6,6 +6,7 @@ public class UserModel {
     private int id; 
     private String username;
     private String passwords;
+    private String funcao;
     
     public UserModel(){
         
@@ -24,4 +25,22 @@ public class UserModel {
     public void settPassword(String passwords){
         this.passwords = passwords;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(String funcao) {
+        this.funcao = funcao;
+    }
+    
+    
 }
