@@ -38,3 +38,4 @@ create table produtos (
 
 INSERT INTO users (username, passwords,nameFirst,sobreNome,matricula,cpf,sexo,dtaNascimento,email,telefone,funcao,cep,endereco,numero,complemento,bairro,cidade,estado)
 VALUES('admin','1234','Jorge Gabriel', 'Souza', '2026001','123.456.789-00', 1, '1990-05-15', 'admin@empresa.com.br', '(11) 98888-7777', 'Gerente', '01001-000', 'Praça da Sé', '100', 'Conjunto 12', 'Sé', 'São Paulo', 'SP');
+

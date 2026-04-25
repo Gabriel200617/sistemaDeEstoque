@@ -27,7 +27,9 @@ public class AuthFilter implements Filter{
                         
                         if(uri.contains("index.html") || uri.contains("login")
                             || uri.contains("css") || uri.contains("js")){
+                            
                             chain.doFilter(request, response);
+                            return;
                         }
                         
                         if(session == null || session.getAttribute("usuario") == null){

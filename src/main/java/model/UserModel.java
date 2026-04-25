@@ -22,7 +22,7 @@ public class UserModel {
     public String getPassword() {
         return passwords;
     }
-    public void settPassword(String passwords){
+    public void setPassword(String passwords){
         this.passwords = passwords;
     }
 
