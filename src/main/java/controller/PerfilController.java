@@ -19,6 +19,6 @@ public class PerfilController extends HttpServlet{
                         String perfil = (String) session.getAttribute("perfil");
                         
                         response.setContentType("application/json");
-                        response.getWriter().write("(\"perfil\":\"" + perfil +"\")");
+                        response.getWriter().write("{\"perfil\":\"" + perfil + "\"}");
     }
 }

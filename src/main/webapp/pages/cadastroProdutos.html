@@ -22,7 +22,7 @@
         <main>
             <section id ="form-container">
                 <form action="../cadastroProdutos" method="POST" id="formCadastro">
-                    <div class="linha-form">
+                    <div class="grupo-form">
                         <label for="codigoBarras">Código de Barras</label>
                         <input type="text" name="codigoBarras" required />
                     </div>
@@ -32,7 +32,7 @@
                         <input type="text" name="nomeProduto" required />
                     </div>
 
-                    <div class="linha-form">
+                    <div class="grupo-form">
                         <label for="fabricante" >Fabricante</label>
                         <input type="text" name="fabricante" required />
                     </div>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="grupo-form full">
                             <label for="status">Status</label>
-                            <select id="status">
+                            <select id="status" name="status">
                             <option value="entrada">Entrada</option>
                             <option value="saida">Saída</option>
                          </select>

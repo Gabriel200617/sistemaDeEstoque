@@ -71,11 +71,12 @@ body {
 
 .grupo-form label {
     margin-bottom: 5px;
+    margin-top: 12px;
     font-weight: bold;
     color: var(--primary-dark);
 }
 
-.grupo-form input {
+.grupo-form input, .grupo-form select {
     padding: 10px;
     border-radius: 6px;
     border: 1px solid var(--gray-medium);
