@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/cores.css" />
+    <link rel="stylesheet" href="../css/gerenciamento.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela | Gerenciamento</title>
+</head>
+
+<body>
+    <header id="header">
+        <h1 id="tituloCadastro">Sistema de estoque</h1>
+        <nav id="menu">
+            <ul class="menu-lista">
+                <li><a href="dashboard.html">Início</a></li>
+                <li><a href="#">Gerenciamento</a></li>
+                <li><a href="cadastro.html" class="btn-menu">Cadastro</a></li>
+                <li><a href="#" id="btnLogout" class="btn-menu">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="container">
+            <div class="box">
+                <div class="box-itens">
+                    <h3 class="itens-title">Total de Itens:</h3>
+                    <p class="itens" id="itens">0</p>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-itens">
+                    <h3 class="itens-title">Estoque de Baixo:</h3>
+                    <p class="itens" id="itens">0</p>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-itens">
+                    <h3 class="itens-title">Valor de Total:</h3>
+                    <p class="itens" id="itens">0</p>
+                </div>
+            </div>
+        </section>
+        <section class="container-grafico">
+            <div class="dashboard-card">
+                <h3 class="grafico-title">Nível de Estoque por Categoria</h3>
+                <div id="meu-grafico" class="chart-container"></div>
+            </div>
+        </section>
+    </main>
+    <script src="../js/gerenciamento.js"></script>
+</body>
+
+</html>

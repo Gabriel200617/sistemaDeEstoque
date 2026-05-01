@@ -1,0 +1,135 @@
+body {
+    background-color: var(--gray-light);
+    color: var(--gray-dark);
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#tituloCadastro {
+    font-size: 24px;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+}
+
+#menu {
+    display: flex;
+    justify-content: center;
+}
+
+.menu-lista {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.menu-lista li a {
+    text-decoration: none;
+    color: var(--primary-medium);
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.menu-lista li a:hover {
+    color: var(--primary-dark);
+}
+
+.btn-menu {
+    background-color: var(--primary-medium);
+    color: var(--white) !important;
+    padding: 6px 15px;
+    border-radius: 20px;
+}
+
+.btn-menu:hover {
+    background-color: var(--primary-dark);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+}
+
+.box{
+    margin-top: 30px;
+}
+
+.box-itens{
+    background-color: var(--white);
+    box-shadow: 0 4px 10px var(--shadow-default);
+    border-radius: 12px;
+    width: 300px;
+    padding: 35px;
+    transition: all 0.2s ease-in-out;
+}
+
+.box-itens:hover{
+    transform: translateY(-5px);
+
+}
+
+.itens-title{
+    color: var(--primary-medium);
+}
+
+.itens{
+    margin-top: 12px;
+    text-align: center;
+    color: var(--primary-dark);
+    font-size: 22px;
+    font-weight: bold;}
+
+.container-grafico{
+    margin-top: 30px;
+}
+
+.grafico-title{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: var(--primary-dark);
+    font-weight: bold;
+}
+
+.chart-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  box-shadow: 0 4px 10px var(--shadow-default);
+  height: 250px;
+  background-color: var(--white);
+  border-radius: 8px;
+  padding: 20px;
+  border-bottom: 2px solid #ddd;
+}
+
+/* Estilo das barras que o JS vai criar */
+.bar {
+  width: 50px;
+  background: linear-gradient(to top, #3498db, #2980b9);
+  border-radius: 5px 5px 0 0;
+  transition: all 0.5s ease; /* Animação suave ao mudar */
+  position: relative;
+  cursor: pointer;
+}
+
+.bar:hover {
+  filter: brightness(1.2);
+}
+
+/* Legenda flutuante em cima da barra */
+.bar::before {
+  content: attr(data-value);
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+}
