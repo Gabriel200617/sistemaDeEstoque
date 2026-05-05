@@ -23,17 +23,19 @@ public class GerenciamentoController extends HttpServlet {
             throws IOException {
 
         String sql = """
-                     SELECT 
-                       COUNT(*) AS totalItens,
-                       SUM(quantidade) AS totalEstoque,
-                       SUM(CASE WHEN quantidade < 10 THEN 1 ELSE 0 END) AS estoqueBaixo,
-                       SUM(CAST(total AS DECIMAL(10,2))) AS valorTotal
-                     FROM produtos
-                     """;
+             SELECT 
+               COUNT(*) AS totalItens,
+               SUM(quantidade) AS totalEstoque,
+               SUM(CASE WHEN quantidade < 10 THEN 1 ELSE 0 END) AS estoqueBaixo,
+               SUM(CASE WHEN status = 'entrada' THEN CAST(total AS DECIMAL(10,2))
+                        WHEN status = 'saida'   THEN -CAST(total AS DECIMAL(10,2))
+                        ELSE 0 END) AS valorTotal
+             FROM produtos
+             """;
 
-        try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionFactory.getConnection(); 
+                PreparedStatement stmt = conn.prepareStatement(sql); 
+                ResultSet rs = stmt.executeQuery()) {
 
             Map<String, Object> resultado = new HashMap<>();
 
@@ -41,20 +43,20 @@ public class GerenciamentoController extends HttpServlet {
             NumberFormat moeda = NumberFormat.getCurrencyInstance(ptBr);
 
             if (rs.next()) {
-                int totalItens     = rs.getInt("totalItens");
-                long totalEstoque  = rs.getLong("totalEstoque");
-                int estoqueBaixo   = rs.getInt("estoqueBaixo");
-                BigDecimal valor   = rs.getBigDecimal("valorTotal");
+                int totalItens = rs.getInt("totalItens");
+                long totalEstoque = rs.getLong("totalEstoque");
+                int estoqueBaixo = rs.getInt("estoqueBaixo");
+                BigDecimal valor = rs.getBigDecimal("valorTotal");
 
-                resultado.put("totalItens",    totalItens);
-                resultado.put("totalEstoque",  totalEstoque);
-                resultado.put("estoqueBaixo",  estoqueBaixo);
-                resultado.put("valorTotal",    valor != null ? moeda.format(valor) : moeda.format(BigDecimal.ZERO));
+                resultado.put("totalItens", totalItens);
+                resultado.put("totalEstoque", totalEstoque);
+                resultado.put("estoqueBaixo", estoqueBaixo);
+                resultado.put("valorTotal", valor != null ? moeda.format(valor) : moeda.format(BigDecimal.ZERO));
             } else {
-                resultado.put("totalItens",   0);
+                resultado.put("totalItens", 0);
                 resultado.put("totalEstoque", 0);
                 resultado.put("estoqueBaixo", 0);
-                resultado.put("valorTotal",   moeda.format(BigDecimal.ZERO));
+                resultado.put("valorTotal", moeda.format(BigDecimal.ZERO));
             }
 
             String json = new Gson().toJson(resultado);

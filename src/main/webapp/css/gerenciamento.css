@@ -86,50 +86,163 @@ body {
     font-size: 22px;
     font-weight: bold;}
 
-.container-grafico{
-    margin-top: 30px;
+.container-grafico {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
 }
 
-.grafico-title{
-    text-align: center;
-    margin-bottom: 20px;
+.dashboard-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Sombra mais difusa e moderna */
+    padding: 30px;
+    width: 100%;
+    max-width: 900px; 
+}
+
+/* Título flexível para acomodar a legenda ao lado */
+.grafico-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    margin-bottom: 25px;
     font-size: 20px;
     color: var(--primary-dark);
     font-weight: bold;
+    border-bottom: 2px solid var(--gray-light);
+    padding-bottom: 12px;
 }
 
+/* Legenda gerada pelo JS */
+.legenda-grafico {
+    display: flex;
+    gap: 15px;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gray-dark);
+}
+
+.legenda-cor {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+.legenda-entrada { background: linear-gradient(135deg, #2ecc71, #208e4e); }
+.legenda-saida { background: linear-gradient(135deg, #e74c3c, #b02a1b); }
+
+/* Container do gráfico com linhas de grade de fundo */
 .chart-container {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-  box-shadow: 0 4px 10px var(--shadow-default);
-  height: 250px;
-  background-color: var(--white);
-  border-radius: 8px;
-  padding: 20px;
-  border-bottom: 2px solid #ddd;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 300px; 
+    /* Efeito de linhas horizontais no fundo */
+    background-image: repeating-linear-gradient(to bottom, transparent, transparent 49px, rgba(0,0,0,0.04) 50px);
+    background-size: 100% 50px;
+    border-radius: 8px;
+    padding: 20px 10px 0 10px;
+    border-bottom: 3px solid var(--primary-medium); /* Linha base do gráfico (Eixo X) */
+    position: relative;
 }
 
-/* Estilo das barras que o JS vai criar */
+.bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    width: 90px;
+    z-index: 1; 
+}
+
+.bar-group {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+.bar-label {
+    margin-top: 15px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-dark);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
 .bar {
-  width: 50px;
-  background: linear-gradient(to top, #3498db, #2980b9);
-  border-radius: 5px 5px 0 0;
-  transition: all 0.5s ease; /* Animação suave ao mudar */
-  position: relative;
-  cursor: pointer;
+    width: 38px;
+    border-radius: 6px 6px 0 0;
+    /* Transição suave estilo 'mola' (cubic-bezier) para a altura */
+    transition: height 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 -3px 8px rgba(0,0,0,0.15); /* Sombra que dá volume à barra */
+    height: 0; /* Inicia zerado para a animação JS funcionar */
 }
 
-.bar:hover {
-  filter: brightness(1.2);
+.bar.entrada {
+    background: linear-gradient(135deg, #2ecc71, #208e4e);
 }
 
-/* Legenda flutuante em cima da barra */
+.bar.saida {
+    background: linear-gradient(135deg, #e74c3c, #b02a1b);
+}
+
+/* Tooltip elegante (Caixa flutuante que aparece no Hover) */
 .bar::before {
-  content: attr(data-value);
-  position: absolute;
-  top: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-weight: bold;
+    content: attr(data-value);
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background-color: var(--primary-dark);
+    color: var(--white);
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 12px;
+    opacity: 0; /* Invisível por padrão */
+    transition: all 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+
+/* O triângulo (setinha) da Tooltip */
+.bar::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--primary-dark) transparent transparent transparent;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+/* Ao passar o mouse, a barra brilha e a tooltip flutua revelando o número */
+.bar:hover {
+    filter: brightness(1.2);
+}
+.bar:hover::before, .bar:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
