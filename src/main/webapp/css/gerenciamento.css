@@ -246,3 +246,120 @@ body {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
+
+.container-pesquisar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    gap: 25px;
+}
+
+.caixa-pesquisa {
+    background-color: var(--white);
+    box-shadow: 0 4px 10px var(--shadow-default);
+    border-radius: 12px;
+    padding: 25px 35px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.caixa-pesquisa label {
+    font-weight: bold;
+    color: var(--primary-dark);
+    white-space: nowrap;
+}
+
+.input-pesquisa {
+    flex: 1;
+    padding: 10px 15px;
+    border: 2px solid var(--gray-light);
+    border-radius: 20px;
+    font-size: 14px;
+    color: var(--gray-dark);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-pesquisa:focus {
+    border-color: var(--primary-medium);
+}
+
+#btn-pesquisar {
+    background-color: var(--primary-medium);
+    color: var(--white);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+#btn-pesquisar:hover {
+    background-color: var(--primary-dark);
+}
+
+.produto {
+    background-color: var(--white);
+    box-shadow: 0 4px 10px var(--shadow-default);
+    border-radius: 12px;
+    padding: 25px 30px;
+    width: 100%;
+    max-width: 900px;
+    transition: all 0.2s ease-in-out;
+}
+
+.produto:empty {
+    display: none;
+}
+
+.produto:hover {
+    transform: translateY(-5px);
+}
+
+.titulo-pesquisa {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary-medium);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--gray-light);
+}
+
+.resultado-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+}
+
+.item-pesquisa {
+    background-color: var(--gray-light);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.item-label {
+    font-size: 11px;
+    color: var(--primary-medium);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.item-valor {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--primary-dark);
+}

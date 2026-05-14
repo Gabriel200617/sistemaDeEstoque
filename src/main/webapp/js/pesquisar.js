@@ -12,16 +12,39 @@ async function pesquisarProduto(evento) {
 
         let divProduto = document.getElementById("produto");
 
+        if(dados != null){
         divProduto.innerHTML = `
-           <h3 class="titulo-pesquisa">Resultado da Busca:</h3>     
-           <p class="item-pesquisa">Produto: ${dados.nome}</p>
-           <p class="item-pesquisa">Fabricante: ${dados.fabricante}</p>
-           <p class="item-pesquisa">Marca: ${dados.marca}</p>
-           <p class="item-pesquisa">Quantidade: ${dados.quantidade}</p>
-           <p class="item-pesquisa">Valor: ${dados.valor}</p>
-           <p class="item-pesquisa">Total no Estoque: ${dados.total}</p>
+           <h3 class="titulo-pesquisa">Resultado da busca</h3>
+        <div class="resultado-grid">
+        <div class="item-pesquisa">
+            <span class="item-label">Produto</span>
+            <span class="item-valor">${dados.nome_produto}</span>
+        </div>
+        <div class="item-pesquisa">
+            <span class="item-label">Fabricante</span>
+            <span class="item-valor">${dados.fabricante}</span>
+        </div>
+        <div class="item-pesquisa">
+            <span class="item-label">Marca</span>
+            <span class="item-valor">${dados.marca}</span>
+        </div>
+        <div class="item-pesquisa">
+            <span class="item-label">Quantidade</span>
+            <span class="item-valor">${dados.quantidade} un.</span>
+        </div>
+        <div class="item-pesquisa">
+            <span class="item-label">Valor</span>
+            <span class="item-valor">R$ ${dados.valor}</span>
+        </div>
+        <div class="item-pesquisa">
+            <span class="item-label">Total no estoque</span>
+            <span class="item-valor">R$ ${dados.total}</span>
+        </div>
+    </div>
         `;
-
+    } else{
+        alert("Dados não encontrado!!")
+    }
 
     } catch (erro) {
         console.log("Erro na busca de dados", erro);
