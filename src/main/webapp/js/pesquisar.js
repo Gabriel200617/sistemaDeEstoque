@@ -12,8 +12,8 @@ async function pesquisarProduto(evento) {
 
         let divProduto = document.getElementById("produto");
 
-        if(dados != null){
-        divProduto.innerHTML = `
+        if (dados !== null) {
+            divProduto.innerHTML = `
            <h3 class="titulo-pesquisa">Resultado da busca</h3>
         <div class="resultado-grid">
         <div class="item-pesquisa">
@@ -40,11 +40,27 @@ async function pesquisarProduto(evento) {
             <span class="item-label">Total no estoque</span>
             <span class="item-valor">R$ ${dados.total}</span>
         </div>
+            <div class="item-pesquisa">
+                <button id="botao-editar" class="btn-editar">Editar</button>
+            </div>
     </div>
         `;
-    } else{
-        alert("Dados não encontrado!!")
-    }
+            
+        const model = document.getElementById("formCadastro");
+        const cancelar = document.getElementsByClassName("btn-cancelar");
+
+        document.getElementById("botao-editar").addEventListener("click", () => {
+            model.style.display = 'flex';
+
+            cancelar.addEventListener("click", () => {
+                event.preventDefault();
+                model.style.display = 'none';
+            });
+
+        });
+        } else {
+            alert("Dados não encontrado!!");
+        }
 
     } catch (erro) {
         console.log("Erro na busca de dados", erro);

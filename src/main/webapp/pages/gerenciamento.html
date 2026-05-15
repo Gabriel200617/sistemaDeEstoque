@@ -61,6 +61,61 @@
                 <div class="produto" id="produto">
                     
                 </div>
+                <form action="../cadastroProdutos" class="modal-form" method="POST" id="formCadastro">
+                    <div class="form">
+                    <div class="grupo-form">
+                        <label for="codigoBarras">Código de Barras</label>
+                        <input type="text" name="codigoBarras" required />
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="nomeProduto" >Nome do Produto</label>
+                        <input type="text" name="nomeProduto" required />
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="fabricante" >Fabricante</label>
+                        <input type="text" name="fabricante" required />
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="marca" >Marca</label>
+                        <input type="text" name="marca" required />
+                    </div>
+                    <div class="linha-form">
+                        <div class="grupo-form">
+                            <label for="dataFabricacao" >Data de Fabricação</label>
+                            <input type="date" name="dataFabricacao" required />
+                        </div>
+
+                        <div class="grupo-form">
+                            <label for="dataVencimento" >Data de Vencimento</label>
+                            <input type="date" name="dataVencimento" required />
+                        </div>
+                    </div>
+                    <div class="linha-form">
+                        <div class="grupo-form">
+                            <label for="quantidade" >Quantidade</label>
+                            <input type="number" name="quantidade" id="quantidade" />
+                        </div>
+
+                        <div class="grupo-form">
+                            <label for="valor" >Valor Unitário</label>
+                            <input type="number" name="valor" id="valor" />
+                        </div>
+                    </div>
+                    <div class="linha-form">
+                        <div class="grupo-form full">
+                            <label for="total">Total</label>
+                            <input type="number" name="total" id="total" />
+                        </div>
+                    </div>
+                    <div class="acoes-form">
+                        <button type="submit" class="btn-salvar">Salvar</button>
+                        <a href="gerenciamento.html" class="btn-cancelar">Cancelar</a>
+                    </div>
+                        </div>
+                </form>
             </section>
         </main>
         <script src="../js/gerenciamento.js"></script>
