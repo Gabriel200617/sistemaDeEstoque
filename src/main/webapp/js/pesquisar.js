@@ -12,7 +12,7 @@ async function pesquisarProduto(evento) {
 
         let divProduto = document.getElementById("produto");
 
-        if (dados !== null) {
+        if (response.ok && dados && dados.nome_produto) {
             divProduto.innerHTML = `
            <h3 class="titulo-pesquisa">Resultado da busca</h3>
         <div class="resultado-grid">
@@ -45,26 +45,37 @@ async function pesquisarProduto(evento) {
             </div>
     </div>
         `;
-            
+          
+        function mostrarResultado() {
         const model = document.getElementById("formCadastro");
-        const cancelar = document.getElementsByClassName("btn-cancelar");
-
-        document.getElementById("botao-editar").addEventListener("click", () => {
-            model.style.display = 'flex';
-
-            cancelar.addEventListener("click", () => {
-                event.preventDefault();
-                model.style.display = 'none';
-            });
-
+        model.style.display = 'flex';
+    
+        document.getElementById("nomeProduto").value = dados.nome_produto;
+        document.getElementById("fabricante").value = dados.fabricante;
+        document.getElementById("quantidade").value = dados.quantidade;
+        document.getElementById("valor").value = dados.valor;
+        document.getElementById("total").value = dados.total;
+    }
+    
+        document.getElementById("botao-editar").addEventListener("click", mostrarResultado);
+        
+        const btnCancelar = document.querySelector(".btn-cancelar");
+        if (btnCancelar) {
+        btnCancelar.addEventListener("click", (evento) => {
+        evento.preventDefault(); 
+        document.getElementById("formCadastro").style.display = 'none';
         });
-        } else {
-            alert("Dados não encontrado!!");
+        }
+        
+        } else{
+            alert("Produtos não encontrado no Estoque!!");
+            divProduto.innerHTML = "";
         }
 
     } catch (erro) {
-        console.log("Erro na busca de dados", erro);
+        divProduto.innerHTML = ""; 
+        alert("Produto não encontrado ou dados inválidos!");
     }
 }
-
-document.getElementById("btn-pesquisar").addEventListener("click", pesquisarProduto);
+    
+    document.getElementById("btn-pesquisar").addEventListener("click", pesquisarProduto);

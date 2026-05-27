@@ -107,7 +107,7 @@ body {
 }
 
 .btn-cancelar {
-    background-color: var(--gray-medium);
+    background-color: var(--gray-dark);
     color: white;
     text-decoration: none;
     padding: 10px 20px;
@@ -115,7 +115,7 @@ body {
 }
 
 .btn-cancelar:hover {
-    background-color: var(--gray-dark);
+    background-color: var(--gray-light);
 }
 
 .dataFabricacao, .dataVencimento, .fabricante {

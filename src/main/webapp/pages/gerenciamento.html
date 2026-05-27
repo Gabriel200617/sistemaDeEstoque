@@ -61,7 +61,7 @@
                 <div class="produto" id="produto">
                     
                 </div>
-                <form action="../cadastroProdutos" class="modal-form" method="POST" id="formCadastro">
+                <form action="../UpdateProdutos" class="modal-form" method="POST" id="formCadastro">
                     <div class="form">
                     <div class="grupo-form">
                         <label for="codigoBarras">Código de Barras</label>
@@ -70,27 +70,27 @@
 
                     <div class="grupo-form">
                         <label for="nomeProduto" >Nome do Produto</label>
-                        <input type="text" name="nomeProduto" required />
+                        <input type="text" name="nomeProduto" id="nomeProduto" />
                     </div>
 
                     <div class="grupo-form">
                         <label for="fabricante" >Fabricante</label>
-                        <input type="text" name="fabricante" required />
+                        <input type="text" name="fabricante" id="fabricante" />
                     </div>
 
                     <div class="grupo-form">
                         <label for="marca" >Marca</label>
-                        <input type="text" name="marca" required />
+                        <input type="text" name="marca" id="marca" />
                     </div>
                     <div class="linha-form">
                         <div class="grupo-form">
                             <label for="dataFabricacao" >Data de Fabricação</label>
-                            <input type="date" name="dataFabricacao" required />
+                            <input type="date" name="dataFabricacao" id="dataFabricacao"  />
                         </div>
 
                         <div class="grupo-form">
                             <label for="dataVencimento" >Data de Vencimento</label>
-                            <input type="date" name="dataVencimento" required />
+                            <input type="date" name="dataVencimento" id="dataVencimento"  />
                         </div>
                     </div>
                     <div class="linha-form">
@@ -112,7 +112,7 @@
                     </div>
                     <div class="acoes-form">
                         <button type="submit" class="btn-salvar">Salvar</button>
-                        <a href="gerenciamento.html" class="btn-cancelar">Cancelar</a>
+                        <a href="#" class="btn-cancelar">Cancelar</a>
                     </div>
                         </div>
                 </form>
