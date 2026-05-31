@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -23,17 +24,19 @@ public class PesquisaController extends HttpServlet {
         String nomePesquisado = request.getParameter("nome_produto");
 
         String sql = """
-             SELECT nome_produto, 
-                    fabricante, 
-                    marca, 
-                    quantidade, 
-                    SUM(CASE WHEN status = 'entrada' THEN CAST(total AS DECIMAL(10,2))
-                             WHEN status = 'saida'   THEN -CAST(total AS DECIMAL(10,2))
-                             ELSE 0 END) as valor, 
-                    total 
+             SELECT nome_produto,
+                 codigo_barras,
+                 nome_produto, 
+                 fabricante, 
+                 marca, 
+                 data_fabricacao,
+                 data_vencimento,
+                 quantidade, 
+                 valor, 
+                 total,
+                 status
              FROM produtos 
              WHERE nome_produto = ?
-             GROUP BY nome_produto, fabricante, marca, quantidade, total
              """;
 
         try (Connection conn = ConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql);) {
@@ -51,6 +54,11 @@ public class PesquisaController extends HttpServlet {
                 int quantidade = rs.getInt("quantidade");
                 BigDecimal valor = rs.getBigDecimal("valor");
                 BigDecimal total = rs.getBigDecimal("total");
+                Date data_fabricacao = rs.getDate("data_fabricacao");
+                Date data_vencimento = rs.getDate("data_vencimento");
+                String codigo_barras = rs.getString("codigo_barras");
+                String status = rs.getString("status");
+
 
                 resultado.put("nome_produto", nome);
                 resultado.put("fabricante", fabricante);
@@ -58,6 +66,10 @@ public class PesquisaController extends HttpServlet {
                 resultado.put("quantidade", quantidade);
                 resultado.put("valor", valor);
                 resultado.put("total", total);
+                resultado.put("data_fabricacao", data_fabricacao != null ? data_fabricacao.toLocalDate().toString() : null);
+                resultado.put("data_vencimento", data_vencimento != null ? data_vencimento.toLocalDate().toString() : null);
+                resultado.put("codigo_barras", codigo_barras);
+                resultado.put("status",status);
             }
 
             String json = new Gson().toJson(resultado);

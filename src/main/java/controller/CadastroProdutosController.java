@@ -1,6 +1,7 @@
 package controller;
 
 import dao.CadastroProdutosDAO;
+import dao.MonitoramentoDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import model.CadastroProdutoModel;
+import model.MonitoramentoModel;
 
 @WebServlet("/cadastroProdutos")
 public class CadastroProdutosController extends HttpServlet {
@@ -31,7 +33,15 @@ public class CadastroProdutosController extends HttpServlet {
         CadastroProdutosDAO dao = new CadastroProdutosDAO();
 
         if (dao.salvar(produto)) {
-            response.sendRedirect("pages/dashboard.html");
+            MonitoramentoModel monitoramento = new MonitoramentoModel();
+                monitoramento.setCodigoBarras(produto.getCodigoBarras());
+                monitoramento.setNomeProduto(produto.getNomeProduto());
+                monitoramento.setTipoMovimentacao(produto.getStatus());
+                monitoramento.setQuantidade(produto.getQuantidade());
+                monitoramento.setValor(produto.getValor());
+                
+                new MonitoramentoDAO().registrarMonitoramento(monitoramento);
+                response.sendRedirect("pages/dashboard.html");
         } else {
             response.sendRedirect("pages/cadastroProdutos.html");
             System.out.println("Chegou aqui");

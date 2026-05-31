@@ -3,9 +3,9 @@ async function resumoGerenciamento() {
         const response = await fetch("http://localhost:8080/api/gerenciamento");
         const dados = await response.json();
 
-        document.getElementById("itens-quantidade").innerHTML = dados.totalItens;   
-        document.getElementById("itens-estoque").innerHTML = dados.estoqueBaixo;    
-        document.getElementById("valor-dinamico").innerHTML = dados.valorTotal;     
+        document.getElementById("itens-quantidade").innerHTML = dados.totalItens;
+        document.getElementById("itens-estoque").innerHTML = dados.estoqueBaixo;
+        document.getElementById("valor-dinamico").innerHTML = dados.valorTotal;
 
     } catch (erro) {
         console.log("Erro na consulta dos dados", erro);
@@ -15,10 +15,10 @@ async function resumoGerenciamento() {
 async function renderizarGrafico() {
     try {
         const response = await fetch("http://localhost:8080/api/grafico");
-        const dadosGrafico = await response.json(); 
+        const dadosGrafico = await response.json();
 
         const chartContainer = document.getElementById("meu-grafico");
-        chartContainer.innerHTML = ""; 
+        chartContainer.innerHTML = "";
 
         // Adiciona a Legenda no título dinamicamente se não existir
         const tituloContainer = document.querySelector(".grafico-title");
@@ -60,11 +60,11 @@ async function renderizarGrafico() {
                 barEntrada.className = "bar entrada";
                 barEntrada.setAttribute("data-value", item.entrada);
                 group.appendChild(barEntrada);
-                
+
                 // Dispara a animação com delay escalonado (cada barra sobe uma após a outra)
                 setTimeout(() => {
                     barEntrada.style.height = alturaEntrada + "%";
-                }, 150 * index); 
+                }, 150 * index);
             }
 
             // Barra Vermelha
@@ -73,7 +73,7 @@ async function renderizarGrafico() {
                 barSaida.className = "bar saida";
                 barSaida.setAttribute("data-value", item.saida);
                 group.appendChild(barSaida);
-                
+
                 // Dispara a animação
                 setTimeout(() => {
                     barSaida.style.height = alturaSaida + "%";
@@ -83,7 +83,7 @@ async function renderizarGrafico() {
             const label = document.createElement("span");
             label.className = "bar-label";
             label.innerText = item.nome;
-            label.title = item.nome; 
+            label.title = item.nome;
 
             wrapper.appendChild(group);
             wrapper.appendChild(label);
@@ -92,6 +92,26 @@ async function renderizarGrafico() {
 
     } catch (erro) {
         console.log("Erro ao carregar o gráfico", erro);
+    }
+}
+
+function mostrarBloco(numero) {
+    const bloco1 = document.querySelector(".bloco-1");
+    const bloco2 = document.getElementById("bloco-2");
+    const btn1 = document.getElementById("btn-bloco1");
+    const btn2 = document.getElementById("btn-bloco2");
+
+    if (numero === 1) {
+        bloco1.style.display = "block";
+        bloco2.style.display = "none";
+        btn1.classList.add("btn-ativo");
+        btn2.classList.remove("btn-ativo");
+    } else {
+        bloco1.style.display = "none";
+        bloco2.style.display = "block";
+        btn1.classList.remove("btn-ativo");
+        btn2.classList.add("btn-ativo");
+        carregarMonitoramento(); // só busca os dados quando abrir o bloco
     }
 }
 

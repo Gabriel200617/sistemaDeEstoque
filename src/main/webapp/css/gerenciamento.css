@@ -50,6 +50,34 @@ body {
     background-color: var(--primary-dark);
 }
 
+.menu-opcao {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.menu-opcao button {
+    background-color: transparent;
+    color: var(--primary-medium);
+    border: none;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.menu-opcao button:hover {
+    background-color: var(--primary-medium);
+    color: var(--white);
+}
+
+.btn-ativo {
+    background-color: var(--primary-medium) !important;
+    color: var(--white) !important;
+}
 .container {
     display: flex;
     justify-content: center;

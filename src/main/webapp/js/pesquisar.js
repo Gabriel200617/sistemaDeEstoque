@@ -55,6 +55,12 @@ async function pesquisarProduto(evento) {
         document.getElementById("quantidade").value = dados.quantidade;
         document.getElementById("valor").value = dados.valor;
         document.getElementById("total").value = dados.total;
+        document.getElementById("marca").value = dados.marca;
+        document.getElementById("codigoBarras").value = dados.codigo_barras;
+        document.getElementById("status").value = dados.status;
+        document.getElementById("dataFabricacao").value = dados.data_fabricacao;
+        document.getElementById("dataVencimento").value = dados.data_vencimento;
+        
     }
     
         document.getElementById("botao-editar").addEventListener("click", mostrarResultado);
