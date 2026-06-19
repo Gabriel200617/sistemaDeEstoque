@@ -21,7 +21,7 @@ public class PesquisaController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        String nomePesquisado = request.getParameter("nome_produto");
+        String nomePesquisado = request.getParameter("codigo_barras");
 
         String sql = """
              SELECT nome_produto,
@@ -36,7 +36,7 @@ public class PesquisaController extends HttpServlet {
                  total,
                  status
              FROM produtos 
-             WHERE nome_produto = ?
+             WHERE codigo_barras = ?
              """;
 
         try (Connection conn = ConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql);) {

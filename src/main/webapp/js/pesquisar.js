@@ -3,7 +3,7 @@ async function pesquisarProduto(evento) {
 
     let nomePesquisado = document.getElementById("nomeDigitado").value;
 
-    let url = "http://localhost:8080/api/pesquisa?nome_produto=" + encodeURIComponent(nomePesquisado);
+    let url = "http://localhost:8080/api/pesquisa?codigo_barras=" + encodeURIComponent(nomePesquisado);
 
     try {
         const response = await fetch(url);
@@ -42,7 +42,10 @@ async function pesquisarProduto(evento) {
         </div>
             <div class="item-pesquisa">
                 <button id="botao-editar" class="btn-editar">Editar</button>
-            </div>
+            </div> 
+            <div class="item-pesquisa">
+           <button id="botao-deletar" class="btn-deletar">Deletar</button>
+            </div> 
     </div>
         `;
           

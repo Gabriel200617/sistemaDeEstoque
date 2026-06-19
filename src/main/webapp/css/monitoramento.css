@@ -209,3 +209,42 @@
     color: var(--gray-medium);
     font-style: italic;
 }
+
+.paginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 16px;
+}
+
+.paginacao button {
+    background-color: transparent;
+    color: var(--primary-medium);
+    border: 2px solid var(--primary-medium);
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.paginacao button:hover:not(:disabled) {
+    background-color: var(--primary-medium);
+    color: var(--white);
+}
+
+.paginacao button:disabled {
+    border-color: var(--gray-medium);
+    color: var(--gray-medium);
+    cursor: not-allowed;
+}
+
+#infoPagina {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--primary-dark);
+    min-width: 120px;
+    text-align: center;
+}

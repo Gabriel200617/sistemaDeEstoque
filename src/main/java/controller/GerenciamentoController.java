@@ -14,15 +14,16 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 @WebServlet("/api/gerenciamento")
 public class GerenciamentoController extends HttpServlet {
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        String sql = """
+        String sqlResumo = """
              SELECT 
                COUNT(*) AS totalItens,
                SUM(quantidade) AS totalEstoque,
@@ -33,31 +34,56 @@ public class GerenciamentoController extends HttpServlet {
              FROM produtos
              """;
 
-        try (Connection conn = ConnectionFactory.getConnection(); 
-                PreparedStatement stmt = conn.prepareStatement(sql); 
-                ResultSet rs = stmt.executeQuery()) {
+        // Nova query que busca a lista dos produtos com estoque baixo
+        String sqlBaixo = """
+             SELECT codigo_barras, nome_produto, quantidade, data_vencimento
+             FROM produtos
+             WHERE quantidade < 10
+             ORDER BY quantidade ASC
+             """;
+
+        try (Connection conn = ConnectionFactory.getConnection()) {
 
             Map<String, Object> resultado = new HashMap<>();
-
             Locale ptBr = Locale.forLanguageTag("pt-BR");
             NumberFormat moeda = NumberFormat.getCurrencyInstance(ptBr);
 
-            if (rs.next()) {
-                int totalItens = rs.getInt("totalItens");
-                long totalEstoque = rs.getLong("totalEstoque");
-                int estoqueBaixo = rs.getInt("estoqueBaixo");
-                BigDecimal valor = rs.getBigDecimal("valorTotal");
+            // Resumo dos cards
+            try (PreparedStatement stmt = conn.prepareStatement(sqlResumo);
+                 ResultSet rs = stmt.executeQuery()) {
 
-                resultado.put("totalItens", totalItens);
-                resultado.put("totalEstoque", totalEstoque);
-                resultado.put("estoqueBaixo", estoqueBaixo);
-                resultado.put("valorTotal", valor != null ? moeda.format(valor) : moeda.format(BigDecimal.ZERO));
-            } else {
-                resultado.put("totalItens", 0);
-                resultado.put("totalEstoque", 0);
-                resultado.put("estoqueBaixo", 0);
-                resultado.put("valorTotal", moeda.format(BigDecimal.ZERO));
+                if (rs.next()) {
+                    resultado.put("totalItens",    rs.getInt("totalItens"));
+                    resultado.put("totalEstoque",  rs.getLong("totalEstoque"));
+                    resultado.put("estoqueBaixo",  rs.getInt("estoqueBaixo"));
+                    BigDecimal valor = rs.getBigDecimal("valorTotal");
+                    resultado.put("valorTotal", valor != null ? moeda.format(valor) : moeda.format(BigDecimal.ZERO));
+                } else {
+                    resultado.put("totalItens", 0);
+                    resultado.put("totalEstoque", 0);
+                    resultado.put("estoqueBaixo", 0);
+                    resultado.put("valorTotal", moeda.format(BigDecimal.ZERO));
+                }
             }
+
+            // Lista dos itens com estoque baixo
+            List<Map<String, Object>> itensBaixo = new ArrayList<>();
+            try (PreparedStatement stmt = conn.prepareStatement(sqlBaixo);
+                 ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("codigoBarras",   rs.getString("codigo_barras"));
+                    item.put("nomeProduto",    rs.getString("nome_produto"));
+                    item.put("quantidade",     rs.getInt("quantidade"));
+                    // Data já como String para evitar bug de timezone no front
+                    java.sql.Date venc = rs.getDate("data_vencimento");
+                    item.put("dataVencimento", venc != null ? venc.toLocalDate().toString() : null);
+                    itensBaixo.add(item);
+                }
+            }
+
+            resultado.put("estoqueBaixoItens", itensBaixo);
 
             String json = new Gson().toJson(resultado);
             response.setContentType("application/json");

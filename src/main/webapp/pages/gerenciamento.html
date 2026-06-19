@@ -1,209 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <link rel="stylesheet" href="../css/reset.css" />
-    <link rel="stylesheet" href="../css/cores.css" />
-    <link rel="stylesheet" href="../css/gerenciamento.css">
-    <link rel="stylesheet" href="../css/monitoramento.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela | Gerenciamento</title>
-</head>
+    <head>
+        <link rel="stylesheet" href="../css/reset.css" />
+        <link rel="stylesheet" href="../css/cores.css" />
+        <link rel="stylesheet" href="../css/gerenciamento.css">
+        <link rel="stylesheet" href="../css/monitoramento.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tela | Gerenciamento</title>
+    </head>
 
-<body>
-    <header id="header">
-        <h1 id="tituloCadastro">Sistema de estoque</h1>
-        <nav id="menu">
-            <ul class="menu-lista">
-                <li><a href="dashboard.html">Início</a></li>
-                <li><a href="#">Gerenciamento</a></li>
-                <li><a href="cadastro.html" class="btn-menu">Cadastro</a></li>
-                <li><a href="#" id="btnLogout" class="btn-menu">Sair</a></li>
-            </ul>
-        </nav>
-        <div class="menu-opcao">
-            <button id="btn-bloco1" class="btn-ativo" onclick="mostrarBloco(1)">Gráfico Estoque</button>
-            <button id="btn-bloco2" onclick="mostrarBloco(2)">Monitoramento</button>
-        </div>
-    </header>
-    <main>
-        <div class="bloco-1" id="bloco-1">
-            <section class="container">
-                <div class="box">
-                    <div class="box-itens">
-                        <h3 class="itens-title">Total de Itens:</h3>
-                        <p class="itens" id="itens-quantidade">0</p>
+    <body>
+        <header id="header">
+            <h1 id="tituloCadastro">Sistema de estoque</h1>
+            <nav id="menu">
+                <ul class="menu-lista">
+                    <li><a href="dashboard.html">Início</a></li>
+                    <li><a href="#">Gerenciamento</a></li>
+                    <li><a href="cadastro.html" class="btn-menu">Cadastro</a></li>
+                    <li><a href="#" id="btnLogout" class="btn-menu">Sair</a></li>
+                </ul>
+            </nav>
+            <div class="menu-opcao">
+                <button id="btn-bloco1" class="btn-ativo" onclick="mostrarBloco(1)">Gráfico Estoque</button>
+                <button id="btn-bloco2" onclick="mostrarBloco(2)">Monitoramento</button>
+            </div>
+        </header>
+        <main>
+            <div class="bloco-1" id="bloco-1">
+                <section class="container">
+                    <div class="box">
+                        <div class="box-itens">
+                            <h3 class="itens-title">Total de Itens:</h3>
+                            <p class="itens" id="itens-quantidade">0</p>
+                        </div>
                     </div>
-                </div>
-                <div class="box">
-                    <div class="box-itens">
-                        <h3 class="itens-title">Estoque Baixo:</h3>
-                        <p class="itens" id="itens-estoque">0</p>
+                    <div class="box">
+                        <div class="box-itens">
+                            <h3 class="itens-title">Estoque Baixo:</h3>
+                            <p class="itens" id="itens-estoque">0</p>
+                        </div>
                     </div>
-                </div>
-                <div class="box">
-                    <div class="box-itens">
-                        <h3 class="itens-title">Valor Total:</h3>
-                        <p class="itens" id="itens-total">
-                            <strong id="valor-dinamico">0,00</strong>
-                        </p>
+                    <div class="box">
+                        <div class="box-itens">
+                            <h3 class="itens-title">Valor Total:</h3>
+                            <p class="itens" id="itens-total">
+                                <strong id="valor-dinamico">0,00</strong>
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <section class="container-grafico">
-                <div class="dashboard-card">
-                    <h3 class="grafico-title">Nível de Estoque por Categoria</h3>
-                    <div id="meu-grafico" class="chart-container"></div>
-                </div>
-            </section>
+                </section>
+                <section class="container-grafico">
+                    <div class="dashboard-card">
+                        <h3 class="grafico-title">Nível de Estoque por Categoria</h3>
+                        <div id="meu-grafico" class="chart-container"></div>
+                    </div>
+                </section>
 
-            <section class="container-pesquisar">
-                <div class="caixa-pesquisa">
-                    <label for="nomeProduto">Pesquise o produto</label>
-                    <input type="text" name="nomeProduto" id="nomeDigitado" class="input-pesquisa">
-                    <button id="btn-pesquisar">Pesquisa</button>
-                </div>
-                <div class="produto" id="produto">
+                <section class="container-pesquisar">
+                    <div class="caixa-pesquisa">
+                        <label for="nomeProduto">Pesquise pelo código de barras</label>
+                        <input type="text" name="nomeProduto" id="nomeDigitado" class="input-pesquisa">
+                        <button id="btn-pesquisar">Pesquisa</button>
+                    </div>
+                    <div class="produto" id="produto">
 
-                </div>
-                <form action="../UpdateProdutos" class="modal-form" method="POST" id="formCadastro">
-                    <div class="form">
-                        <div class="grupo-form">
-                            <label for="codigoBarras">Código de Barras</label>
-                            <input type="text" name="codigoBarras" id="codigoBarras" required />
-                        </div>
-
-                        <div class="grupo-form">
-                            <label for="nomeProduto">Nome do Produto</label>
-                            <input type="text" name="nomeProduto" id="nomeProduto" />
-                        </div>
-
-                        <div class="grupo-form">
-                            <label for="fabricante">Fabricante</label>
-                            <input type="text" name="fabricante" id="fabricante" />
-                        </div>
-
-                        <div class="grupo-form">
-                            <label for="marca">Marca</label>
-                            <input type="text" name="marca" id="marca" />
-                        </div>
-                        <div class="linha-form">
+                    </div>
+                    <form action="../UpdateProdutos" class="modal-form" method="POST" id="formCadastro">
+                        <div class="form">
                             <div class="grupo-form">
-                                <label for="dataFabricacao">Data de Fabricação</label>
-                                <input type="date" name="dataFabricacao" id="dataFabricacao" />
+                                <label for="codigoBarras">Código de Barras</label>
+                                <input type="text" name="codigoBarras" id="codigoBarras" required />
                             </div>
 
                             <div class="grupo-form">
-                                <label for="dataVencimento">Data de Vencimento</label>
-                                <input type="date" name="dataVencimento" id="dataVencimento" />
-                            </div>
-                        </div>
-                        <div class="linha-form">
-                            <div class="grupo-form">
-                                <label for="quantidade">Quantidade</label>
-                                <input type="number" name="quantidade" id="quantidade" />
+                                <label for="nomeProduto">Nome do Produto</label>
+                                <input type="text" name="nomeProduto" id="nomeProduto" />
                             </div>
 
                             <div class="grupo-form">
-                                <label for="valor">Valor Unitário</label>
-                                <input type="number" name="valor" id="valor" />
+                                <label for="fabricante">Fabricante</label>
+                                <input type="text" name="fabricante" id="fabricante" />
                             </div>
-                        </div>
-                        <div class="linha-form">
+
+                            <div class="grupo-form">
+                                <label for="marca">Marca</label>
+                                <input type="text" name="marca" id="marca" />
+                            </div>
+                            <div class="linha-form">
+                                <div class="grupo-form">
+                                    <label for="dataFabricacao">Data de Fabricação</label>
+                                    <input type="date" name="dataFabricacao" id="dataFabricacao" />
+                                </div>
+
+                                <div class="grupo-form">
+                                    <label for="dataVencimento">Data de Vencimento</label>
+                                    <input type="date" name="dataVencimento" id="dataVencimento" />
+                                </div>
+                            </div>
+                            <div class="linha-form">
+                                <div class="grupo-form">
+                                    <label for="quantidade">Quantidade</label>
+                                    <input type="number" name="quantidade" id="quantidade" />
+                                </div>
+
+                                <div class="grupo-form">
+                                    <label for="valor">Valor Unitário</label>
+                                    <input type="number" name="valor" id="valor" />
+                                </div>
+                            </div>
+                            <div class="linha-form">
+                                <div class="grupo-form full">
+                                    <label for="total">Total</label>
+                                    <input type="number" name="total" id="total" />
+                                </div>
+                            </div>
                             <div class="grupo-form full">
-                                <label for="total">Total</label>
-                                <input type="number" name="total" id="total" />
+                                <label for="status">Status</label>
+                                <select id="status" name="status">
+                                    <option value="entrada">Entrada</option>
+                                    <option value="saida">Saída</option>
+                                </select>
+                            </div>
+                            <div class="acoes-form">
+                                <button type="submit" class="btn-salvar">Salvar</button>
+                                <a href="#" class="btn-cancelar">Cancelar</a>
                             </div>
                         </div>
-                        <div class="grupo-form full">
-                            <label for="status">Status</label>
-                            <select id="status" name="status">
+                    </form>
+                </section>
+            </div>
+            <div class="bloco-2" id="bloco-2" style="display:none">
+                <section class="container-monitoramento">
+
+                    <div class="cards-resumo">
+                        <div class="card-metrica">
+                            <span class="metrica-label">Itens com estoque baixo</span>
+                            <span class="metrica-valor danger" id="metricBaixo">0</span>
+                        </div>
+                        <div class="card-metrica">
+                            <span class="metrica-label">Entradas hoje</span>
+                            <span class="metrica-valor" id="metricEntradas">0</span>
+                        </div>
+                        <div class="card-metrica">
+                            <span class="metrica-label">Saídas hoje</span>
+                            <span class="metrica-valor" id="metricSaidas">0</span>
+                        </div>
+                        <div class="card-metrica">
+                            <span class="metrica-label">Última atualização</span>
+                            <span class="metrica-valor small" id="metricUltima">—</span>
+                        </div>
+                    </div>
+
+                    <div class="secao">
+                        <h3 class="secao-titulo">Itens com estoque baixo</h3>
+                        <div class="table-wrapper">
+                            <table id="tabelaBaixo">
+                                <thead>
+                                    <tr>
+                                        <th>Produto</th>
+                                        <th>Código</th>
+                                        <th>Quantidade</th>
+                                        <th>Situação</th>
+                                        <th>Vencimento</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="secao">
+                        <h3 class="secao-titulo">Últimas movimentações</h3>
+                        <div class="filtro-row">
+                            <label for="filtroTipo">Filtrar:</label>
+                            <select id="filtroTipo">
+                                <option value="">Todos</option>
                                 <option value="entrada">Entrada</option>
                                 <option value="saida">Saída</option>
                             </select>
                         </div>
-                        <div class="acoes-form">
-                            <button type="submit" class="btn-salvar">Salvar</button>
-                            <a href="#" class="btn-cancelar">Cancelar</a>
+                        <div class="table-wrapper">
+                            <table id="tabelaHistorico">
+                                <thead>
+                                    <tr>
+                                        <th>Produto</th>
+                                        <th>Código</th>
+                                        <th>Tipo</th>
+                                        <th>Qtd</th>
+                                        <th>Valor</th>
+                                        <th>Data/hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <div class="paginacao">
+                            <button id="btnAnterior" disabled>&#8592; Anterior</button>
+                            <span id="infoPagina"></span>
+                            <button id="btnProximo">Próximo &#8594;</button>
                         </div>
                     </div>
-                </form>
-            </section>
-        </div>
-        <div class="bloco-2" id="bloco-2" style="display:none">
-    <section class="container-monitoramento">
-
-        <div class="cards-resumo">
-            <div class="card-metrica">
-                <span class="metrica-label">Itens com estoque baixo</span>
-                <span class="metrica-valor danger" id="metricBaixo">0</span>
+                </section>
             </div>
-            <div class="card-metrica">
-                <span class="metrica-label">Entradas hoje</span>
-                <span class="metrica-valor" id="metricEntradas">0</span>
-            </div>
-            <div class="card-metrica">
-                <span class="metrica-label">Saídas hoje</span>
-                <span class="metrica-valor" id="metricSaidas">0</span>
-            </div>
-            <div class="card-metrica">
-                <span class="metrica-label">Última atualização</span>
-                <span class="metrica-valor small" id="metricUltima">—</span>
-            </div>
-        </div>
-
-        <div class="secao">
-            <h3 class="secao-titulo">Itens com estoque baixo</h3>
-            <div class="table-wrapper">
-                <table id="tabelaBaixo">
-                    <thead>
-                        <tr>
-                            <th>Produto</th>
-                            <th>Código</th>
-                            <th>Quantidade</th>
-                            <th>Situação</th>
-                            <th>Vencimento</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="secao">
-            <h3 class="secao-titulo">Últimas movimentações</h3>
-            <div class="filtro-row">
-                <label for="filtroTipo">Filtrar:</label>
-                <select id="filtroTipo">
-                    <option value="">Todos</option>
-                    <option value="entrada">Entrada</option>
-                    <option value="saida">Saída</option>
-                </select>
-            </div>
-            <div class="table-wrapper">
-                <table id="tabelaHistorico">
-                    <thead>
-                        <tr>
-                            <th>Produto</th>
-                            <th>Código</th>
-                            <th>Tipo</th>
-                            <th>Qtd</th>
-                            <th>Valor</th>
-                            <th>Data/hora</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-</div>
-    </main>
-    <script src="../js/gerenciamento.js"></script>
-    <script src="../js/pesquisar.js"></script>
-    <script src="../js/logout.js"></script>
-    <script src="../js/cadastroProdutos.js"></script>
-</body>
+        </main>
+        <script src="../js/gerenciamento.js"></script>
+        <script src="../js/pesquisar.js"></script>
+        <script src="../js/logout.js"></script>
+        <script src="../js/monitoramento.js"></script>
+        <script src="../js/cadastroProdutos.js"></script>
+    </body>
 
 </html>

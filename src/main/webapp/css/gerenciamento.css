@@ -120,33 +120,32 @@ body {
     justify-content: center;
 }
 
+/* ── Card do gráfico ── */
 .dashboard-card {
     background-color: var(--white);
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Sombra mais difusa e moderna */
-    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    padding: 30px 35px;
     width: 100%;
-    max-width: 900px; 
+    max-width: 900px;
 }
 
-/* Título flexível para acomodar a legenda ao lado */
+/* ── Título + legenda ── */
 .grafico-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    text-align: left;
-    margin-bottom: 25px;
-    font-size: 20px;
+    margin-bottom: 30px;
+    font-size: 18px;
     color: var(--primary-dark);
     font-weight: bold;
-    border-bottom: 2px solid var(--gray-light);
-    padding-bottom: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--gray-light);
 }
 
-/* Legenda gerada pelo JS */
 .legenda-grafico {
     display: flex;
-    gap: 15px;
+    gap: 16px;
     font-size: 13px;
     font-weight: normal;
 }
@@ -154,123 +153,146 @@ body {
 .legenda-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 7px;
     color: var(--gray-dark);
 }
 
 .legenda-cor {
-    width: 12px;
-    height: 12px;
-    border-radius: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
 }
 
-.legenda-entrada { background: linear-gradient(135deg, #2ecc71, #208e4e); }
-.legenda-saida { background: linear-gradient(135deg, #e74c3c, #b02a1b); }
+.legenda-entrada { background-color: #27ae60; }
+.legenda-saida   { background-color: #e74c3c; }
 
-/* Container do gráfico com linhas de grade de fundo */
+/* ── Área do gráfico ── */
 .chart-container {
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
-    height: 300px; 
-    /* Efeito de linhas horizontais no fundo */
-    background-image: repeating-linear-gradient(to bottom, transparent, transparent 49px, rgba(0,0,0,0.04) 50px);
-    background-size: 100% 50px;
-    border-radius: 8px;
-    padding: 20px 10px 0 10px;
-    border-bottom: 3px solid var(--primary-medium); /* Linha base do gráfico (Eixo X) */
+    height: 280px;
+    padding: 0 10px;
+    border-bottom: 2px solid var(--gray-light);
+    border-left: 2px solid var(--gray-light);
     position: relative;
+
+    /* Linhas de grade horizontais */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent calc(25% - 1px),
+        rgba(0, 0, 0, 0.04) calc(25% - 1px),
+        rgba(0, 0, 0, 0.04) 25%
+    );
 }
 
+/* Linha zero no eixo X */
+.chart-container::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--primary-medium);
+    opacity: 0.3;
+    border-radius: 2px;
+}
+
+/* ── Grupo de barras por produto ── */
 .bar-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
     height: 100%;
-    width: 90px;
-    z-index: 1; 
+    flex: 1;
+    max-width: 100px;
+    padding-bottom: 0;
 }
 
 .bar-group {
     display: flex;
     align-items: flex-end;
-    gap: 6px;
+    gap: 5px;
     height: 100%;
     width: 100%;
     justify-content: center;
 }
 
+/* ── Label do produto ── */
 .bar-label {
-    margin-top: 15px;
-    font-size: 13px;
+    margin-top: 12px;
+    font-size: 12px;
     font-weight: 600;
-    color: var(--primary-dark);
+    color: var(--gray-dark);
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
+    opacity: 0.8;
 }
 
+/* ── Barras ── */
 .bar {
-    width: 38px;
+    width: 32px;
     border-radius: 6px 6px 0 0;
-    /* Transição suave estilo 'mola' (cubic-bezier) para a altura */
-    transition: height 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
+    transition: height 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
     position: relative;
     cursor: pointer;
-    box-shadow: 0 -3px 8px rgba(0,0,0,0.15); /* Sombra que dá volume à barra */
-    height: 0; /* Inicia zerado para a animação JS funcionar */
+    height: 0;
 }
 
 .bar.entrada {
-    background: linear-gradient(135deg, #2ecc71, #208e4e);
+    background-color: #27ae60;
+    box-shadow: 0 -2px 12px rgba(39, 174, 96, 0.35);
 }
 
 .bar.saida {
-    background: linear-gradient(135deg, #e74c3c, #b02a1b);
+    background-color: #e74c3c;
+    box-shadow: 0 -2px 12px rgba(231, 76, 60, 0.35);
 }
 
-/* Tooltip elegante (Caixa flutuante que aparece no Hover) */
+.bar:hover {
+    opacity: 0.85;
+}
+
+/* ── Tooltip ── */
 .bar::before {
     content: attr(data-value);
     position: absolute;
-    top: -30px;
+    top: -34px;
     left: 50%;
-    transform: translateX(-50%) translateY(10px);
+    transform: translateX(-50%) translateY(6px);
     background-color: var(--primary-dark);
     color: var(--white);
-    padding: 5px 10px;
+    padding: 4px 10px;
     border-radius: 6px;
     font-weight: bold;
     font-size: 12px;
-    opacity: 0; /* Invisível por padrão */
-    transition: all 0.3s ease;
-    pointer-events: none;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-}
-
-/* O triângulo (setinha) da Tooltip */
-.bar::after {
-    content: '';
-    position: absolute;
-    top: -4px;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    border-width: 5px;
-    border-style: solid;
-    border-color: var(--primary-dark) transparent transparent transparent;
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.bar::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    border: 5px solid transparent;
+    border-top-color: var(--primary-dark);
+    opacity: 0;
+    transition: all 0.25s ease;
     pointer-events: none;
 }
 
-/* Ao passar o mouse, a barra brilha e a tooltip flutua revelando o número */
-.bar:hover {
-    filter: brightness(1.2);
-}
-.bar:hover::before, .bar:hover::after {
+.bar:hover::before,
+.bar:hover::after {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
@@ -390,6 +412,33 @@ body {
     font-size: 15px;
     font-weight: bold;
     color: var(--primary-dark);
+}
+
+.btn-editar{
+    background-color: var(--primary-medium);
+    color: var(--white);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+        
+}
+
+.btn-deletar{
+    background-color: var(--delete);
+    color: var(--white);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
 }
 
 .modal-form {
