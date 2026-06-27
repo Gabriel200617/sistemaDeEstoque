@@ -538,6 +538,54 @@ body {
 .dataFabricacao, .dataVencimento, .fabricante {
     margin-top: 15px;
 }
+
+/* Confirmação de delete */
+.modal-confirmacao {
+    padding: 20px;
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.aviso-delete {
+    color: var(--red, #e74c3c);
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+}
+
+.acoes-confirmacao {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-cancelar-delete {
+    padding: 8px 20px;
+    border: 1px solid var(--gray-light);
+    border-radius: 6px;
+    background: var(--primary-medium);
+    cursor: pointer;
+}
+
+.btn-cancelar-delete:hover {
+    background: var(--primary-dark);
+}
+
+/* Mensagens de retorno */
+.msg-sucesso {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+    padding: 16px;
+}
+
+.msg-erro {
+    color: var(--red, #e74c3c);
+    font-weight: bold;
+    text-align: center;
+    padding: 16px;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
