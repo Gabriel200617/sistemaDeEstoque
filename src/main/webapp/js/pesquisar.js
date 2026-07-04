@@ -46,6 +46,9 @@ async function pesquisarProduto(evento) {
             <div class="item-pesquisa">
            <button id="botao-deletar" class="btn-deletar">Deletar</button>
             </div> 
+            <div class="item-pesquisa">
+           <button id="botao-saida" class="btn-saida">Registrar Saída</button>
+            </div> 
     </div>
         `;
 
@@ -77,8 +80,12 @@ async function pesquisarProduto(evento) {
             }
             
             document.getElementById("botao-deletar").addEventListener("click", () => {
-            deleteProduto(dados.codigo_barras, dados.nome_produto, divProduto);
-        });
+                deleteProduto(dados.codigo_barras, dados.nome_produto, divProduto);
+            });
+
+            document.getElementById("botao-saida").addEventListener("click", () => {
+                registrarSaida(dados, divProduto);
+            });
 
         } else {
             alert("Produtos não encontrado no Estoque!!");
@@ -88,6 +95,46 @@ async function pesquisarProduto(evento) {
     } catch (erro) {
         divProduto.innerHTML = "";
         alert("Produto não encontrado ou dados inválidos!");
+    }
+}
+
+async function registrarSaida(dados, divProduto) {
+    const qtd = prompt(`Estoque atual: ${dados.quantidade} un. Quantas unidades vão sair?`);
+
+    if (qtd === null) return; // usuário cancelou
+    if (isNaN(qtd) || Number(qtd) <= 0) {
+        alert("Quantidade inválida.");
+        return;
+    }
+    if (Number(qtd) > dados.quantidade) {
+        alert("Quantidade maior que o estoque disponível.");
+        return;
+    }
+
+    const body = new URLSearchParams({
+        codigoBarras: dados.codigo_barras,
+        nomeProduto: dados.nome_produto,
+        valor: dados.valor,
+        quantidade: qtd
+    });
+
+    try {
+        const response = await fetch("http://localhost:8080/api/saida", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body
+        });
+        const resultado = await response.json();
+
+        if (response.ok && resultado.sucesso) {
+            alert("Saída registrada com sucesso!");
+            document.getElementById("btn-pesquisar").click(); // recarrega os dados na tela
+        } else {
+            alert("Erro: " + (resultado.erro || "não foi possível registrar a saída"));
+        }
+    } catch (erro) {
+        console.error("Erro ao registrar saída:", erro);
+        alert("Erro de comunicação com o servidor.");
     }
 }
 

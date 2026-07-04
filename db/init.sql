@@ -50,3 +50,116 @@ CREATE TABLE monitoramento (
         ON UPDATE CASCADE
 );
 
+
+INSERT INTO users (
+    username,
+    passwords,
+    nameFirst,
+    sobreNome,
+    matricula,
+    cpf,
+    sexo,
+    dtaNascimento,
+    email,
+    telefone,
+    funcao,
+    cep,
+    endereco,
+    cidade,
+    bairro,
+    estado,
+    numero,
+    complemento
+) VALUES (
+    'admin',
+    '$2a$12$IA0Cn6VPiqqdEAsWGNBDu.QHD9Q8qFXkou/YWE5yb/P0dwTmtOM9q',
+    'Administrador',
+    'Sistema',
+    '000001',
+    '00000000000',
+    1,
+    '1990-01-01',
+    'admin@empresa.com',
+    '(00) 00000-0000',
+    'admin',
+    '00000-000',
+    'Rua Principal',
+    'São Paulo',
+    'Centro',
+    'SP',
+    100,
+    ''
+);
+
+INSERT INTO users (
+    username,
+    passwords,
+    nameFirst,
+    sobreNome,
+    matricula,
+    cpf,
+    sexo,
+    dtaNascimento,
+    email,
+    telefone,
+    funcao,
+    cep,
+    endereco,
+    cidade,
+    bairro,
+    estado,
+    numero,
+    complemento
+) VALUES (
+    'perfil',
+    '$2a$12$XvKAK8ve.3WfJ6jadnja3.81zvUpk0IyzAi6x/F5rLn.GJFo/TE/C',
+    'Usuário',
+    'Padrão',
+    '000002',
+    '11111111111',
+    1,
+    '1995-01-01',
+    'perfil@empresa.com',
+    '(00) 99999-9999',
+    'user',
+    '00000-000',
+    'Rua Secundária',
+    'São Paulo',
+    'Centro',
+    'SP',
+    200,
+    ''
+);
+
+DELIMITER $$
+
+CREATE TRIGGER trg_saida_atualiza_estoque
+BEFORE INSERT ON monitoramento
+FOR EACH ROW
+BEGIN
+    DECLARE estoque_atual BIGINT;
+
+    IF NEW.tipo_movimentacao = 'saida' THEN
+
+        SELECT quantidade INTO estoque_atual
+        FROM produtos
+        WHERE codigo_barras = NEW.codigo_barras
+        FOR UPDATE;
+
+        IF estoque_atual IS NULL THEN
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'Produto não encontrado no estoque';
+        ELSEIF estoque_atual < NEW.quantidade THEN
+            SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = 'Estoque insuficiente para essa saída';
+        ELSE
+            UPDATE produtos
+            SET total = (quantidade - NEW.quantidade) * valor,
+                quantidade = quantidade - NEW.quantidade
+            WHERE codigo_barras = NEW.codigo_barras;
+        END IF;
+
+    END IF;
+END$$
+
+DELIMITER ;

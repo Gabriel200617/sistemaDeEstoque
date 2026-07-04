@@ -21,15 +21,23 @@ public class GraficoController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        // Agrupa por produto e separa o que é entrada e o que é saída
+        // ALTERADO: "entrada" agora é o estoque ATUAL (produtos.quantidade,
+        // já descontado pela trigger a cada saída). "saida" continua sendo
+        // o histórico total de saídas (monitoramento), pra dar contexto de
+        // quanto já foi retirado no total.
         String sql = """
              SELECT 
-               nome_produto, 
-               SUM(CASE WHEN status = 'entrada' THEN quantidade ELSE 0 END) AS qtd_entrada,
-               SUM(CASE WHEN status = 'saida' THEN quantidade ELSE 0 END) AS qtd_saida
-             FROM produtos 
-             GROUP BY nome_produto 
-             ORDER BY (qtd_entrada + qtd_saida) DESC 
+               p.nome_produto,
+               p.quantidade AS estoque_atual,
+               COALESCE(m.total_saida, 0) AS total_saida
+             FROM produtos p
+             LEFT JOIN (
+                 SELECT nome_produto, SUM(quantidade) AS total_saida
+                 FROM monitoramento
+                 WHERE tipo_movimentacao = 'saida'
+                 GROUP BY nome_produto
+             ) m ON m.nome_produto = p.nome_produto
+             ORDER BY (p.quantidade + COALESCE(m.total_saida, 0)) DESC
              LIMIT 5
              """;
 
@@ -42,8 +50,8 @@ public class GraficoController extends HttpServlet {
             while (rs.next()) {
                 Map<String, Object> item = new HashMap<>();
                 item.put("nome", rs.getString("nome_produto"));
-                item.put("entrada", rs.getInt("qtd_entrada"));
-                item.put("saida", rs.getInt("qtd_saida"));
+                item.put("entrada", rs.getInt("estoque_atual"));
+                item.put("saida", rs.getInt("total_saida"));
                 dadosGrafico.add(item);
             }
 

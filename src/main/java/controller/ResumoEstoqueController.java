@@ -22,9 +22,9 @@ public class ResumoEstoqueController extends HttpServlet{
          
          String sql = """
                       SELECT 
-                        SUM(CASE WHEN status = 'entrada' THEN quantidade ELSE 0 END) AS entrada,
-                        SUM(CASE WHEN status = 'saida' THEN quantidade ELSE 0 END) AS saida
-                      FROM produtos
+                        SUM(CASE WHEN tipo_movimentacao = 'entrada' THEN quantidade ELSE 0 END) AS entrada,
+                        SUM(CASE WHEN tipo_movimentacao = 'saida' THEN quantidade ELSE 0 END) AS saida
+                      FROM monitoramento
                       """;
          
          try(Connection conn = ConnectionFactory.getConnection();

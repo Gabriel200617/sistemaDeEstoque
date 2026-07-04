@@ -1,5 +1,7 @@
 package controller;
 
+import Exception.ExceptionsHandles;
+import Exception.ValidaçãoExceptions;
 import dao.CadastroProdutosDAO;
 import dao.MonitoramentoDAO;
 import jakarta.servlet.ServletException;
@@ -8,6 +10,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import model.CadastroProdutoModel;
 import model.MonitoramentoModel;
 
@@ -16,7 +20,9 @@ public class CadastroProdutosController extends HttpServlet {
 
     public void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-
+     
+    try {
+        
         CadastroProdutoModel produto = new CadastroProdutoModel();
 
         produto.setCodigoBarras(request.getParameter("codigoBarras"));
@@ -30,10 +36,19 @@ public class CadastroProdutosController extends HttpServlet {
         produto.setTotal(request.getParameter("total"));
         produto.setStatus(request.getParameter("status"));
 
-        CadastroProdutosDAO dao = new CadastroProdutosDAO();
+            LocalDate dataVenci = LocalDate.parse(produto.getDataVencimento());
+            LocalDate dataFab = LocalDate.parse(produto.getDataFabricacao());
+            Long quantidade = produto.getQuantidade();
+            double total = Double.parseDouble(produto.getTotal());
 
-        if (dao.salvar(produto)) {
-            MonitoramentoModel monitoramento = new MonitoramentoModel();
+            ExceptionsHandles.validarData(dataVenci, dataFab);
+            ExceptionsHandles.validarQuantidade(quantidade);
+            ExceptionsHandles.validarTotal(total);
+
+            CadastroProdutosDAO dao = new CadastroProdutosDAO();
+            if (dao.salvar(produto)) {
+                
+                MonitoramentoModel monitoramento = new MonitoramentoModel();
                 monitoramento.setCodigoBarras(produto.getCodigoBarras());
                 monitoramento.setNomeProduto(produto.getNomeProduto());
                 monitoramento.setTipoMovimentacao(produto.getStatus());
@@ -42,9 +57,14 @@ public class CadastroProdutosController extends HttpServlet {
                 
                 new MonitoramentoDAO().registrarMonitoramento(monitoramento);
                 response.sendRedirect("pages/dashboard.html");
-        } else {
-            response.sendRedirect("pages/cadastroProdutos.html");
-            System.out.println("Chegou aqui");
+            } else {
+                request.setAttribute("erro", "Não foi possível salvar o produto");
+                request.getRequestDispatcher("pages/cadastroProdutos.html").forward(request, response);
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro interno no servidor");
         }
     }
 

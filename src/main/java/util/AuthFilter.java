@@ -47,22 +47,21 @@ public class AuthFilter implements Filter {
 
         String perfil = (String) session.getAttribute("perfil");
 
-        if (uri.contains("cadastro") && !"admin".equals(perfil)) {
+        boolean isCadastroUsuario = uri.equals("/pages/cadastro")
+                || uri.equals("/pages/cadastro.html");
 
+        boolean isCadastroProduto = uri.equals("/cadastroProdutos")
+                || uri.equals("/pages/cadastroProdutos.html");
+
+        if (isCadastroUsuario && !"admin".equals(perfil)) {
             res.sendError(HttpServletResponse.SC_FORBIDDEN);
-
             return;
-
         }
 
-        if (uri.contains("cadastroProdutos") && !"admin".equals(perfil)) {
-
+        if (isCadastroProduto && !"admin".equals(perfil) && !"user".equals(perfil)) {
             res.sendError(HttpServletResponse.SC_FORBIDDEN);
-
             return;
-
         }
-
         res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
 
         res.setHeader("Pragma", "no-cache"); // HTTP 1.0

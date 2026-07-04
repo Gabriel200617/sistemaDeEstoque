@@ -43,3 +43,7 @@ async function filtroEstoque() {
 }
 
 document.getElementById("btnPesquisar").addEventListener("click", filtroEstoque);
+
+document.getElementById("pesquisarNome").addEventListener("keyup", (evento) => {
+    if (evento.key === "Enter") pesquisar();
+});
