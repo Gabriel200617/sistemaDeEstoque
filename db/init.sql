@@ -131,6 +131,47 @@ INSERT INTO users (
     ''
 );
 
+INSERT INTO users (
+    username, 
+    passwords, 
+    nameFirst, 
+    sobreNome, 
+    matricula, 
+    cpf, 
+    sexo, 
+    dtaNascimento, 
+    email, 
+    telefone, 
+    funcao, 
+    cep, 
+    endereco, 
+    cidade, 
+    bairro, 
+    estado, 
+    numero, 
+    complemento
+) VALUES (
+    'hugo', 
+    '$2a$12$woZWZxeyoD5LJR9pYYticO1S66R6tbO9Vgo6kTlXqS.Pp7hc66RBi',            
+    'Hugo', 
+    'Santos',                         
+    'MAT-2026-001',                   
+    '123.456.789-00',                 
+    1,                                
+    '1995-05-15',                    
+    'hugo.admin@email.com',           
+    '(11) 99999-9999',                
+    'admin',                          
+    '01311-200',                      
+    'Avenida Paulista',               
+    'São Paulo',                      
+    'Bela Vista',                    
+    'SP',                             
+    1200,                             
+    'Bloco B, Ap 42'                 
+);
+
+
 DELIMITER $$
 
 CREATE TRIGGER trg_saida_atualiza_estoque
